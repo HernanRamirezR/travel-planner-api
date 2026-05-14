@@ -35,4 +35,16 @@ export class TravelPlansService {
         return travelPlan;
     }
 
+    async findAll() {
+        return this.travelPlanModel.find();
+    }
+    
+    async findOne(id: string) {
+        return this.travelPlanModel.findById(id);
+    }
+
+    async remove(id: string){
+        return this.travelPlanModel.findByIdAndDelete(id);
+    }
+
 }
