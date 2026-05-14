@@ -1,0 +1,38 @@
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
+import { TravelPlan, TravelPlanDocument } from './schemas/travel-plan.schema';
+import { CreateTravelPlanDto } from './dto/create-travel-plan.dto';
+
+import { CountriesService } from '../countries/countries.service';
+
+
+
+@Injectable()
+export class TravelPlansService {
+
+    constructor(
+    @InjectModel(TravelPlan.name)
+    private travelPlanModel: Model<TravelPlanDocument>,
+
+    private readonly countriesService: CountriesService,
+    ) {}
+
+    async create(createTravelPlanDto: CreateTravelPlanDto) {
+
+        await this.countriesService.getByAlphaCode(
+            createTravelPlanDto.countryCode,
+        );
+
+        const travelPlan = await this.travelPlanModel.create({
+            title: createTravelPlanDto.title,
+            startDate: createTravelPlanDto.startDate,
+            endDate: createTravelPlanDto.endDate,
+            countryCode: createTravelPlanDto.countryCode.toUpperCase(),
+        });
+
+        return travelPlan;
+    }
+
+}

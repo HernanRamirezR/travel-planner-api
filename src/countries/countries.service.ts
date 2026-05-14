@@ -12,7 +12,7 @@ export class CountriesService {
     private readonly restCountriesProvider: RestCountriesProvider
     ){}
 
-    async findByAlphaCode(alphaCode: string){
+    async getByAlphaCode(alphaCode: string){
         
         let country = await this.countryModel.findOne({
             alpha3Code: alphaCode,
