@@ -259,7 +259,7 @@ DELETE http://localhost:3000/travel-plans/6824f0cbb6d1f6c6b5d4d123
 
 # Estructura general del proyecto
 
-
+```text 
 src/
 │
 ├── countries/
@@ -282,6 +282,7 @@ src/
 │
 ├── app.module.ts
 └── main.ts
+```
 
 
 ---
