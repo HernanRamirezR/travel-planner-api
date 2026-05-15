@@ -48,15 +48,15 @@ export class TravelPlansService {
     }
 
     async findAll() {
-        return this.travelPlanModel.find();
+        return this.travelPlanModel.find().populate('userId');
     }
     
     async findOne(id: string) {
-        return this.travelPlanModel.findById(id);
+        return this.travelPlanModel.findById(id).populate('userId');
     }
 
     async remove(id: string){
-        return this.travelPlanModel.findByIdAndDelete(id);
+        return this.travelPlanModel.findByIdAndDelete(id).populate('userId');
     }
 
     async addExpense(id: string, UpdateTravelPlanDto: ExpenseDto) {
