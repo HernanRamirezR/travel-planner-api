@@ -286,3 +286,11 @@ src/
 * El proyecto utiliza validación automática mediante ValidationPipe.
 * Los países se almacenan localmente únicamente la primera vez que son consultados.
 * Añadí un handler para cuando el API externo no encuentra el país ingresado
+
+---
+# Modificaciones del parcial
+
+## Modificaciones para Expenses: 
+
+Cada Travel-plan contiene un arreglo que almacena los expenses, los cuales son embebidos de acuerdo con las instrucciones dadas. Por lo tanto, para poderlos insertar, utilice la funcion 'findByIdAndUpdate', la cual recibe el id del objeto que quiero actualizar y luego usando el operador $push de mongo es posible agregar elementos al arreglo sin reemplazar el documento completo (Profe, si recuerda le comente que aqui no me salían los atributos del expense, era porque tenia unos corchetes demás y me tocó luchar para encontrarlo). 
+
