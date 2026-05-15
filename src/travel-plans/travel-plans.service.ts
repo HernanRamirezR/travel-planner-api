@@ -6,7 +6,7 @@ import { TravelPlan, TravelPlanDocument } from './schemas/travel-plan.schema';
 import { CreateTravelPlanDto } from './dto/create-travel-plan.dto';
 
 import { CountriesService } from '../countries/countries.service';
-import { UpdateTravelPlanDto } from './dto/update-travel-plan.dto';
+import { ExpenseDto } from './dto/expense.dto';
 
 
 
@@ -48,12 +48,12 @@ export class TravelPlansService {
         return this.travelPlanModel.findByIdAndDelete(id);
     }
 
-    async update(id: string, UpdateTravelPlanDto: UpdateTravelPlanDto) {
+    async addExpense(id: string, UpdateTravelPlanDto: ExpenseDto) {
         if (!isValidObjectId(id)) throw new BadRequestException('Invalid Travel Plan id');
 
-        let travelPlan = await this.travelPlanModel.findByIdAndUpdate(
+        const travelPlan = await this.travelPlanModel.findByIdAndUpdate(
             id, 
-            {$push: {expenses: {UpdateTravelPlanDto}}},
+            {$push: {expenses: UpdateTravelPlanDto}},
             { new: true }
         )
     

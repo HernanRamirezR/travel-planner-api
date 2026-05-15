@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { Expenses, ExpensesSchema } from './expenses.schema';
+import { Expense, ExpenseSchema } from './expenses.schema';
 
 
 export type TravelPlanDocument = HydratedDocument<TravelPlan>;
@@ -19,10 +19,10 @@ export class TravelPlan {
     @Prop({ required: true })
     countryCode!: string;
 
-    @Prop({type: [ExpensesSchema], default: [],
+    @Prop({type: [ExpenseSchema], default: [],
     
     })
-    expenses!: Expenses;
+    expenses!: Expense[];
 
 
     
