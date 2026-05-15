@@ -43,13 +43,14 @@ El proyecto utiliza MongoDB ejecutándose localmente mediante Docker.
 
 ## 1. Crear el contenedor
 
-
+``` text
 docker run -d \
   --name mongo-travel-planner \
   -p 27017:27017 \
   -e MONGO_INITDB_ROOT_USERNAME=root \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo
+```
 
 
 ---
@@ -139,10 +140,9 @@ Se utilizan DTOs con class-validator para validar automáticamente:
 
 # Flujo de caché de países
 
-El sistema utiliza un patrón cache-aside.
-
 ## Primera consulta de un país
 
+``` text
 TravelPlansService
         ↓
 CountriesService
@@ -154,12 +154,13 @@ RestCountries API
 Guardar país en MongoDB
         ↓
 Retornar país
-
+```
 
 ---
 
 ## Consultas posteriores
 
+``` text
 TravelPlansService
         ↓
 CountriesService
@@ -167,7 +168,7 @@ CountriesService
 MongoDB (hit)
         ↓
 Retornar país desde caché
-
+```
 
 En este caso ya no se realiza una petición a la API externa.
 
@@ -177,29 +178,33 @@ En este caso ya no se realiza una petición a la API externa.
 
 ## Crear plan de viaje
 
+``` text
 POST /travel-plans
-
+```
 
 ---
 
 ## Obtener todos los planes
 
+``` text
 GET /travel-plans
-
+```
 
 ---
 
 ## Obtener un plan por ID
 
+``` text
 GET /travel-plans/:id
-
+```
 
 ---
 
 ## Eliminar un plan
 
+```
 DELETE /travel-plans/:id
-
+```
 
 ---
 
@@ -209,7 +214,9 @@ DELETE /travel-plans/:id
 
 ### Request
 
+``` text
 POST http://localhost:3000/travel-plans
+```
 
 
 ### Body JSON
@@ -222,20 +229,6 @@ POST http://localhost:3000/travel-plans
 }
 
 
----
-
-## Crear otro plan
-
-### Body JSON
-
-
-{
-  "title": "Viaje a Estados Unidos",
-  "startDate": "2026-07-15",
-  "endDate": "2026-07-30",
-  "countryCode": "USA"
-}
-
 
 ---
 En caso de querer conocer el id de un plan, sería necesario primero ejecutar la consulta para obtener todos los planes y consultarlo alli directamente. Esto puede ser usado para el endpoint de consultar un plan en detalle y de eliminar. 
@@ -245,15 +238,15 @@ En caso de querer conocer el id de un plan, sería necesario primero ejecutar la
 
 ### Request
 
-
+```text 
 DELETE http://localhost:3000/travel-plans/<ID>
-
-
+```
 
 Ejemplo:
 
+``` text
 DELETE http://localhost:3000/travel-plans/6824f0cbb6d1f6c6b5d4d123
-
+```
 
 ---
 
@@ -292,3 +285,4 @@ src/
 * MongoDB Compass puede utilizarse para visualizar las colecciones y documentos almacenados.
 * El proyecto utiliza validación automática mediante ValidationPipe.
 * Los países se almacenan localmente únicamente la primera vez que son consultados.
+* Añadí un handler para cuando el API externo no encuentra el país ingresado
