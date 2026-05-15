@@ -1,98 +1,307 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Travel Planner API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend desarrollado con NestJS, MongoDB y Mongoose para la gestión de planes de viaje y el almacenamiento en caché de información de países obtenida desde la API externa RestCountries.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+# Tecnologías utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* NestJS
+* MongoDB
+* Mongoose
+* Docker
+* TypeScript
+* Axios / HttpModule
+* class-validator
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+# Instalación del proyecto
 
-## Compile and run the project
+## 1. Clonar el repositorio
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+git clone <https://github.com/HernanRamirezR/travel-planner-api.git>
+cd travel-planner-api
 
-# production mode
-$ npm run start:prod
-```
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+## 2. Instalar dependencias
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+npm install
 
-## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# Configuración de MongoDB
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+El proyecto utiliza MongoDB ejecutándose localmente mediante Docker.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
+## 1. Crear el contenedor
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+docker run -d \
+  --name mongo-travel-planner \
+  -p 27017:27017 \
+  -e MONGO_INITDB_ROOT_USERNAME=root \
+  -e MONGO_INITDB_ROOT_PASSWORD=secret \
+  mongo
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 2. Verificar que el contenedor esté ejecutándose
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+docker ps
+
+
+---
+
+# Ejecución del proyecto
+
+## Ejecutar el proyecto
+
+
+npm run start
+
+
+El servidor quedará disponible en:
+
+http://localhost:3000
+
+
+---
+
+# Arquitectura interna
+
+El proyecto está dividido en dos módulos principales:
+
+## CountriesModule
+
+Responsable de:
+
+* Consultar la API externa RestCountries.
+* Almacenar países localmente en MongoDB.
+* Implementar el sistema de caché.
+* Exponer internamente CountriesService.
+
+### Componentes principales
+
+#### RestCountriesProvider
+
+Provider especializado encargado únicamente de consumir la API externa RestCountries.
+
+#### CountriesService
+
+Contiene la lógica de caché:
+
+1. Busca el país en MongoDB.
+2. Si existe, retorna el país almacenado localmente.
+3. Si no existe, consulta RestCountries.
+4. Guarda el resultado en MongoDB.
+5. Retorna el país almacenado.
+
+---
+
+## TravelPlansModule
+
+Responsable de:
+
+* Crear planes de viaje.
+* Consultar planes almacenados.
+* Eliminar planes.
+* Validar que el país destino exista utilizando CountriesService.
+
+### Componentes principales
+
+#### TravelPlansController
+
+Define los endpoints HTTP.
+
+#### TravelPlansService
+
+Contiene la lógica de negocio relacionada con los planes de viaje.
+
+#### DTOs
+
+Se utilizan DTOs con class-validator para validar automáticamente:
+
+* Strings vacíos.
+* Fechas inválidas.
+* Códigos Alpha-3 inválidos.
+
+---
+
+# Flujo de caché de países
+
+El sistema utiliza un patrón cache-aside.
+
+## Primera consulta de un país
+
+TravelPlansService
+        ↓
+CountriesService
+        ↓
+MongoDB (miss)
+        ↓
+RestCountries API
+        ↓
+Guardar país en MongoDB
+        ↓
+Retornar país
+
+
+---
+
+## Consultas posteriores
+
+TravelPlansService
+        ↓
+CountriesService
+        ↓
+MongoDB (hit)
+        ↓
+Retornar país desde caché
+
+
+En este caso ya no se realiza una petición a la API externa.
+
+---
+
+# Endpoints disponibles
+
+## Crear plan de viaje
+
+POST /travel-plans
+
+
+---
+
+## Obtener todos los planes
+
+GET /travel-plans
+
+
+---
+
+## Obtener un plan por ID
+
+GET /travel-plans/:id
+
+
+---
+
+## Eliminar un plan
+
+DELETE /travel-plans/:id
+
+
+---
+
+# Ejemplos de peticiones JSON
+
+## Crear plan de viaje
+
+### Request
+
+POST http://localhost:3000/travel-plans
+
+
+### Body JSON
+
+{
+  "title": "Viaje a Colombia",
+  "startDate": "2026-06-01",
+  "endDate": "2026-06-10",
+  "countryCode": "COL"
+}
+
+
+---
+
+## Crear otro plan
+
+### Body JSON
+
+
+{
+  "title": "Viaje a Estados Unidos",
+  "startDate": "2026-07-15",
+  "endDate": "2026-07-30",
+  "countryCode": "USA"
+}
+
+
+---
+## Consultar todos los planes
+
+### Body JSON
+
+
+{
+  "title": "Viaje a Estados Unidos",
+  "startDate": "2026-07-15",
+  "endDate": "2026-07-30",
+  "countryCode": "USA"
+}
+
+
+---
+
+
+
+## Eliminar un plan
+
+### Request
+
+
+DELETE http://localhost:3000/travel-plans/<ID>
+
+
+
+Ejemplo:
+
+DELETE http://localhost:3000/travel-plans/6824f0cbb6d1f6c6b5d4d123
+
+
+---
+
+# Estructura general del proyecto
+
+
+src/
+│
+├── countries/
+│   ├── providers/
+|   |    └── restcountries
+|   |         └── restcountries.provider.ts
+│   ├── schemas/
+|   |    └── country.schema.ts
+│   ├── countries.module.ts
+│   └── countries.service.ts
+│
+├── travel-plans/
+│   ├── dto/
+|   |    └── create-travel-plan.dto.ts
+│   ├── schemas/
+|   |    └── travel-plan.schema.ts
+│   ├── travel-plans.controller.ts
+│   ├── travel-plans.module.ts
+│   └── travel-plans.service.ts
+│
+├── app.module.ts
+└── main.ts
+
+
+---
+
+# Notas adicionales
+
+* MongoDB Compass puede utilizarse para visualizar las colecciones y documentos almacenados.
+* El proyecto utiliza validación automática mediante ValidationPipe.
+* Los países se almacenan localmente únicamente la primera vez que son consultados.
