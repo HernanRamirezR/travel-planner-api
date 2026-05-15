@@ -238,24 +238,10 @@ POST http://localhost:3000/travel-plans
 
 
 ---
-## Consultar todos los planes
-
-### Body JSON
-
-
-{
-  "title": "Viaje a Estados Unidos",
-  "startDate": "2026-07-15",
-  "endDate": "2026-07-30",
-  "countryCode": "USA"
-}
-
-
----
-
-
+En caso de querer conocer el id de un plan, sería necesario primero ejecutar la consulta para obtener todos los planes y consultarlo alli directamente. Esto puede ser usado para el endpoint de consultar un plan en detalle y de eliminar. 
 
 ## Eliminar un plan
+
 
 ### Request
 
