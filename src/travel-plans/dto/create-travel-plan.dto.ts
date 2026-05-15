@@ -15,4 +15,9 @@ export class CreateTravelPlanDto {
   @IsString()
   @Length(3, 3)
   countryCode!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userId!: string;
+  
 }

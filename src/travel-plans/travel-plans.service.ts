@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 
 import { TravelPlan, TravelPlanDocument } from './schemas/travel-plan.schema';
 import { CreateTravelPlanDto } from './dto/create-travel-plan.dto';
 
+import { UsersService } from '../users/users.service';
 import { CountriesService } from '../countries/countries.service';
 import { ExpenseDto } from './dto/expense.dto';
 
@@ -16,21 +17,31 @@ export class TravelPlansService {
     constructor(
     @InjectModel(TravelPlan.name)
     private travelPlanModel: Model<TravelPlanDocument>,
-
+    
+    private readonly usersService: UsersService,
     private readonly countriesService: CountriesService,
     ) {}
 
     async create(createTravelPlanDto: CreateTravelPlanDto) {
 
+        const user = await this.usersService.findOne(createTravelPlanDto.userId);
+
+        if (!user){
+            throw new NotFoundException('User not found')
+        };
+
+
         await this.countriesService.getByAlphaCode(
             createTravelPlanDto.countryCode,
         );
-
+        
+    
         const travelPlan = await this.travelPlanModel.create({
             title: createTravelPlanDto.title,
             startDate: createTravelPlanDto.startDate,
             endDate: createTravelPlanDto.endDate,
             countryCode: createTravelPlanDto.countryCode.toUpperCase(),
+            userId: createTravelPlanDto.userId,
         });
 
         return travelPlan;
