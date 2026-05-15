@@ -1,6 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
+type Expenses = { 
+    description: string, 
+    amount: number,
+    category?: string
+};
+
 export type TravelPlanDocument = HydratedDocument<TravelPlan>;
 @Schema({ timestamps: true })
 export class TravelPlan {
@@ -16,6 +22,16 @@ export class TravelPlan {
 
     @Prop({ required: true })
     countryCode!: string;
+
+    @Prop({type: {
+            description: { type: String, required: true },
+            amount: { type: Number, required: true },
+            category: { type: String }
+        },
+    
+    })
+    expenses!: Expenses;
+
 
     
 }

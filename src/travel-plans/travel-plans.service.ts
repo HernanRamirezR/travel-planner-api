@@ -6,6 +6,7 @@ import { TravelPlan, TravelPlanDocument } from './schemas/travel-plan.schema';
 import { CreateTravelPlanDto } from './dto/create-travel-plan.dto';
 
 import { CountriesService } from '../countries/countries.service';
+import { UpdateTravelPlanDto } from './dto/update-travel-plan.dto';
 
 
 
@@ -45,6 +46,18 @@ export class TravelPlansService {
 
     async remove(id: string){
         return this.travelPlanModel.findByIdAndDelete(id);
+    }
+
+    async update(id: string, UpdateTravelPlanDto: UpdateTravelPlanDto) {
+
+        let travelPlan = await this.travelPlanModel.findById(id)
+        if (travelPlan){
+            travelPlan.expenses = UpdateTravelPlanDto;
+            travelPlan.save()
+        }
+
+        return travelPlan
+        
     }
 
 }
