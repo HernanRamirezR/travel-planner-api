@@ -286,6 +286,7 @@ src/
 * El proyecto utiliza validación automática mediante ValidationPipe.
 * Los países se almacenan localmente únicamente la primera vez que son consultados.
 * Añadí un handler para cuando el API externo no encuentra el país ingresado
+* Aunque no se solicitaba, deje que por consola se muestre cuando se utiliza el servicio de Country, indicando si se hizo un fetch al api o si se usó la cache. 
 
 ---
 # Modificaciones del parcial
