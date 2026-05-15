@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 
 import { TravelPlan, TravelPlanDocument } from './schemas/travel-plan.schema';
 import { CreateTravelPlanDto } from './dto/create-travel-plan.dto';
@@ -49,13 +49,14 @@ export class TravelPlansService {
     }
 
     async update(id: string, UpdateTravelPlanDto: UpdateTravelPlanDto) {
+        if (!isValidObjectId(id)) throw new BadRequestException('Invalid Travel Plan id');
 
-        let travelPlan = await this.travelPlanModel.findById(id)
-        if (travelPlan){
-            travelPlan.expenses = UpdateTravelPlanDto;
-            travelPlan.save()
-        }
-
+        let travelPlan = await this.travelPlanModel.findByIdAndUpdate(
+            id, 
+            {$push: {expenses: {UpdateTravelPlanDto}}},
+            { new: true }
+        )
+    
         return travelPlan
         
     }
