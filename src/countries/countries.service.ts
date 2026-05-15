@@ -19,9 +19,11 @@ export class CountriesService {
         });
 
         if (country){
+            console.log("Using cached country");
             return country
         }
 
+        console.log('Fetching country from API');
         const newCountry = await this.restCountriesProvider.getCountryByAlphaCode(alphaCode);
 
         country = await this.countryModel.create({
