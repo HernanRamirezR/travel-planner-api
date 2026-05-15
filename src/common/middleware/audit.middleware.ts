@@ -1,0 +1,13 @@
+import { Injectable, NestMiddleware } from '@nestjs/common';
+
+@Injectable()
+export class AuditMiddleware implements NestMiddleware {
+
+  use(req: any, res: any, next: Function ) {
+    const userId = req.header('x-user-id') || 'ANONYMOUS';
+
+    console.log(`[User: ${userId}] ` + "accedió a " + `${req.originalUrl} ` + `- ${req.method}`);
+
+    next();
+  }
+}
